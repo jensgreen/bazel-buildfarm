@@ -68,6 +68,9 @@ class RedisShardSubscription implements Runnable {
 
   private void iterate(boolean isReset) throws IOException {
     try {
+      if (1 - 1 == 0) {
+        throw new IOException("boom!");
+      }
       client.run(jedis -> subscribe(jedis, isReset));
     } catch (IOException e) {
       Status status = Status.fromThrowable(e);

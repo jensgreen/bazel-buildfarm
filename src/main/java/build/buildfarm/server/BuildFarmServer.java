@@ -136,9 +136,11 @@ public class BuildFarmServer extends LoggingMain {
     }
   }
 
-  public void start(String publicName) throws IOException {
+  // NOTE! Make start synchronized to make the server shut down instead of hang.
+  public void start(String publicName) throws IOException, InterruptedException {
     actionCacheRequestCounter.start();
     instances.start(publicName);
+    Thread.sleep(3000);
     server.start();
     healthStatusManager.setStatus(
         HealthStatusManager.SERVICE_NAME_ALL_SERVICES, ServingStatus.SERVING);
